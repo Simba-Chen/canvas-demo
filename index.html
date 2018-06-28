@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>我的canvas画板</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        #canvas{
+            background-color: yellow;
+            display: block;
+        }
+        #eraser{
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            border-radius: 4px;
+        }
+        #pen{
+            position: fixed;
+            bottom: 0;
+            left: 50px;
+            border-radius: 4px;
+        }
+        .color{
+            position: fixed;
+            bottom: 0;
+            left: 80px;
+        }
+        .color div{
+            float: left;
+            width: 20px;
+            height: 20px;
+            margin: 0 10px;
+            border-radius: 10px;
+        }
+        .color #red{
+            background-color: red;
+        }
+        .color #green{
+            background-color: green;
+        }
+        .color #blue{
+            background-color: blue;
+        }
+        .clearfix::after{
+            content:'';
+            display: block;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div>
+        <button id="eraser">橡皮擦</button>
+        <button id="pen">画笔</button>
+    </div>
+    <div class="color clearfix">
+        <div id="red"></div>
+        <div id="green"></div>
+        <div id="blue"></div>
+    </div>
+    <script src="./main.js"></script>
+</body>
+</html>
