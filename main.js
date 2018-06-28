@@ -12,33 +12,63 @@ var using = false
 var eraserEnabled = false
 var lastPoint = {x: undefined,y: undefined}
 
-canvas.onmousedown = function(message) {
-  using = true
-  var x = message.clientX
-  var y = message.clientY
-  if(eraserEnabled){
-    context.clearRect(x-5,y-5,10,10)
-  }else{
-    lastPoint.x = x
-    lastPoint.y = y 
+if(document.body.ontouchstart !== undefined){
+  canvas.ontouchstart = function(message) {
+    using = true
+    var x = message.touches[0].clientX
+    var y = message.touches[0].clientY
+    if(eraserEnabled){
+      context.clearRect(x-5,y-5,10,10)
+    }else{
+      lastPoint.x = x
+      lastPoint.y = y 
+    }
+  } 
+  canvas.ontouchmove = function(message) {
+    var x = message.touches[0].clientX
+    var y = message.touches[0].clientY
+    var newPoint = {x: x,y: y}
+    if(!using){return}
+    if(eraserEnabled){
+      context.clearRect(x-5,y-5,10,10)
+    }else{
+        drawLine(lastPoint.x,lastPoint.y,newPoint.x,newPoint.y)
+        lastPoint = newPoint
+    }
+  }
+  canvas.ontouchend = function() {
+    using = false
+  }
+}else{
+  canvas.onmousedown = function(message) {
+    using = true
+    var x = message.clientX
+    var y = message.clientY
+    if(eraserEnabled){
+      context.clearRect(x-5,y-5,10,10)
+    }else{
+      lastPoint.x = x
+      lastPoint.y = y 
+    }
+  }
+  canvas.onmousemove = function(message) {
+    var x = message.clientX
+    var y = message.clientY
+    var newPoint = {x: x,y: y}
+    if(!using){return}
+    if(eraserEnabled){
+      context.clearRect(x-5,y-5,10,10)
+    }else{
+        drawLine(lastPoint.x,lastPoint.y,newPoint.x,newPoint.y)
+        lastPoint = newPoint
+    }
+  }
+  canvas.onmouseup = function() {
+    using = false
   }
 }
 
-canvas.onmousemove = function(message) {
-  var x = message.clientX
-  var y = message.clientY
-  var newPoint = {x: x,y: y}
-  if(!using){return}
-  if(eraserEnabled){
-    context.clearRect(x-5,y-5,10,10)
-  }else{
-      drawLine(lastPoint.x,lastPoint.y,newPoint.x,newPoint.y)
-      lastPoint = newPoint
-  }
-}
-canvas.onmouseup = function() {
-  using = false
-}
+
 
 eraser.onclick = function(){
   eraserEnabled = true
