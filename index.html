@@ -10,6 +10,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            overflow: hidden;  /*以防在手机页面上出现滚动条bug*/
         }
         #canvas{
             background-color: yellow;
@@ -18,26 +19,40 @@
         #eraser{
             position: fixed;
             bottom: 0;
-            left: 0;
+            left: 30px;
             border-radius: 4px;
+            width: 25px;
+            height: 25px;
+            transition: all 0.5s;  /*变化时间 写在原对象上，避免放大后瞬间缩小。提高美感*/
         }
-        #pen{
+        #eraser.active{    /*CSS选择器的需要，必须两个同时满足要求，才能触发本属性，避免样式混乱*/
+            fill: red;
+            transform: scale(1.2); /*放大1.2倍*/
+        }
+        #pen{      
             position: fixed;
             bottom: 0;
-            left: 50px;
+            left: 5px;
             border-radius: 4px;
+            width: 25px;
+            height: 25px;
+            transition: all 0.5s;  /*变化时间*/
+        }
+        #pen.active{
+            fill: red;
+            transform: scale(1.2); /*放大1.2倍*/
         }
         .color{
             position: fixed;
             bottom: 0;
-            left: 80px;
+            left: 50px;
         }
         .color div{
             float: left;
             width: 20px;
             height: 20px;
             margin: 0 10px;
-            border-radius: 10px;
+            border-radius: 50%;
         }
         .color #red{
             background-color: red;
@@ -48,18 +63,34 @@
         .color #blue{
             background-color: blue;
         }
+        .color>div.active{
+            transform: scale(1.1);
+            transition: all 0.5s;
+            border-radius: 50%;
+        }
         .clearfix::after{
             content:'';
             display: block;
             clear: both;
+        }        
+        .icon {
+        width: 1em; height: 1em;
+        vertical-align: -0.15em;
+        fill: currentColor;
+        overflow: hidden;
         }
     </style>
+    <script src="http://at.alicdn.com/t/font_728565_5a99d8es80l.js"></script>
 </head>
 <body>
     <canvas id="canvas"></canvas>
     <div>
-        <button id="eraser">橡皮擦</button>
-        <button id="pen">画笔</button>
+        <svg class="icon active" aria-hidden="true" id="pen">
+            <use xlink:href="#icon-pen"></use>
+        </svg>
+        <svg class="icon" aria-hidden="true" id="eraser">
+            <use xlink:href="#icon-eraser"></use>
+        </svg>
     </div>
     <div class="color clearfix">
         <div id="red"></div>

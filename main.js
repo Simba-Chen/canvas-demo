@@ -72,12 +72,31 @@ if(document.body.ontouchstart !== undefined){
 
 eraser.onclick = function(){
   eraserEnabled = true
+  eraser.classList.add('active')
+  pen.classList.remove('active')
 }
 pen.onclick = function(){
   eraserEnabled = false
+  pen.classList.add('active')
+  eraser.classList.remove('active')
 }
 red.onclick = function(){
-  drawLine.context.strokeStyle = 'red'
+  context.strokeStyle = 'red'  /*注意不在drawLine内部将context.strokeStyle写死*/
+  red.classList.add('active')
+  green.classList.remove('active')
+  blue.classList.remove('active')
+}
+green.onclick = function(){
+  context.strokeStyle = 'green'
+  green.classList.add('active')
+  red.classList.remove('active')
+  blue.classList.remove('active')  
+}
+blue.onclick = function(){
+  context.strokeStyle = 'blue'
+  blue.classList.add('active')
+  green.classList.remove('active')
+  red.classList.remove('active')
 }
 
 function setPageSize(){
@@ -97,7 +116,6 @@ var drawLine = function(x1,y1,x2,y2){
   context.moveTo(x1,y1) //起点
   context.lineTo(x2,y2) //终点
   context.lineWidth = 4
-  context.strokeStyle = 'black'
   context.stroke()  
   context.closePath()
 }
