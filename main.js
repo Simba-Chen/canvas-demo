@@ -80,23 +80,45 @@ pen.onclick = function(){
   pen.classList.add('active')
   eraser.classList.remove('active')
 }
+black.onclick = function(){
+  context.strokeStyle = 'black'  /*注意不在drawLine内部将context.strokeStyle写死*/
+  black.classList.add('active')
+  green.classList.remove('active')
+  blue.classList.remove('active')
+  yellow.classList.remove('active')
+  red.classList.remove('active')
+}
 red.onclick = function(){
   context.strokeStyle = 'red'  /*注意不在drawLine内部将context.strokeStyle写死*/
   red.classList.add('active')
   green.classList.remove('active')
   blue.classList.remove('active')
+  black.classList.remove('active')
+  yellow.classList.remove('active')
 }
 green.onclick = function(){
   context.strokeStyle = 'green'
   green.classList.add('active')
   red.classList.remove('active')
-  blue.classList.remove('active')  
+  blue.classList.remove('active')
+  black.classList.remove('active')
+  yellow.classList.remove('active')  
 }
 blue.onclick = function(){
   context.strokeStyle = 'blue'
   blue.classList.add('active')
   green.classList.remove('active')
   red.classList.remove('active')
+  yellow.classList.remove('active')
+  black.classList.remove('active')
+}
+yellow.onclick = function(){
+  context.strokeStyle = 'yellow'
+  yellow.classList.add('active')
+  green.classList.remove('active')
+  red.classList.remove('active')
+  black.classList.remove('active')
+  blue.classList.remove('active')
 }
 
 function setPageSize(){
@@ -106,7 +128,7 @@ function setPageSize(){
   canvas.width = pageWidth  
 }
 function autoSetPageSize(){
-  setPageSize()
+    setPageSize()
   window.onresize = function(){
     setPageSize()
   }
